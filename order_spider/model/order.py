@@ -75,6 +75,6 @@ class Order(object):
         result.append(str(self.total_price).replace('￥', ''))
         good = []
         for gd in self.goods_list:
-            good.append(json.dumps(gd, default=lambda obj: obj.__dict__))
+            good.append(json.dumps(gd, ensure_ascii=False, default=lambda obj: obj.__dict__))
         result.append(good)
         return result
