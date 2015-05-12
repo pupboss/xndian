@@ -11,6 +11,7 @@ import api.printer_api
 import api.order_api
 
 import db_insert
+import db_read
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -47,7 +48,7 @@ def spider():
     
     except Exception, e:
         
-        return '这个订单可能不存在'
+        return e + '订单可能不存在'
 
 @app.route('/insert/order', methods=['POST'])
 def feedback():
@@ -69,10 +70,20 @@ def feedback():
         return jsonify(status=False)
 
     
-@app.route('/admin')
-def admin():
+@app.route('/info/<orderDate>')
+def admin(orderDate):
 
-    return 'hello'    
+    try:
+        
+        result = db_read.getAllInfoByDate(orderDate)
+        
+        return result
+    
+    
+    
+    except Exception, e:
+        
+        return '出问题了'   
     
 if __name__ == '__main__':
     app.run(debug=True)

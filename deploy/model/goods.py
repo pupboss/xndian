@@ -52,3 +52,9 @@ class Goods(object):
         return '（' + str(self._num) + '）' + str(self._name) + '<BR>' + \
             str(self._unit_price) + ' * ' + str(self._count) + ' = ' \
             + str(self.total_price) + '<BR>'
+
+    def to_json(self):
+        
+        result = {'_num': str(self.num), '_name': str(self.name), '_count': str(self.count), '_unit_price': str(self.unit_price).replace('￥', ''), '_total_price': str(self.total_price).replace('￥', '')}
+        
+        return result
